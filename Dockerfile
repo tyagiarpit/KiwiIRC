@@ -16,8 +16,9 @@ RUN	cd /src; npm install -g n; npm install -g npm@latest; npm install;n stable
 
 RUN	ln -s /usr/local/bin/node /usr/local/bin/nodejs
 
-EXPOSE  7778
 RUN cd /src; cp config.example.js config.js
 RUN cd /src; nodejs --version;./kiwi build
 RUN cd /src; ./kiwi start
+EXPOSE  7778
+CMD ["./src/kiwi","start","-f"]
 
