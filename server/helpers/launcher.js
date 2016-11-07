@@ -7,7 +7,7 @@ var client = redis.createClient(6379, '127.0.0.1', {})
 
 publicIp.v4().then(ip => {
     console.log('IP Address is :'+ip);
-    client.lpush("servers","http://"+ip+":7778/);
+    client.lpush("servers","http://"+ip+":7778/");
     //=> '46.5.21.123' 
 });
 // Check if a pidfile has been set as an argument
