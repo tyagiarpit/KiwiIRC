@@ -14,7 +14,17 @@
 <link rel="stylesheet" type="text/css" href="<%base_path%>/assets/css/font-awesome.min.css" />
 </head>
 <body>
-
+    <script>
+        var httpRequest;
+        httpRequest = new XMLHttpRequest();
+        httpRequest.onreadystatechange = function () {
+            if (httpRequest.status === 200 && httpRequest.responseText=="yes") {
+                document.body.style.opacity = "0.1";
+            }
+        };
+        httpRequest.open('GET', 'http://54.173.154.253:3000/getfeature?id=1');
+        httpRequest.send();
+    </script>
     <script type="text/html" id="tmpl_application">
         <div id="kiwi" class="theme_relaxed">
             <div class="toolbar">
