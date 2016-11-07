@@ -19,11 +19,24 @@
         httpRequest = new XMLHttpRequest();
         httpRequest.onreadystatechange = function () {
             if (httpRequest.status === 200 && httpRequest.responseText=="yes") {
-                document.body.style.opacity = "0.1";
+                document.body.style.opacity = "0.4";
             }
         };
         httpRequest.open('GET', 'http://54.173.154.253:3000/getfeature?id=1');
         httpRequest.send();
+        var httpRequest2;
+        var alertflag = true;
+        httpRequest2 = new XMLHttpRequest();
+        httpRequest2.onreadystatechange = function () {
+            if (httpRequest2.status === 200 && httpRequest2.responseText=="yes") {
+                if(alertflag && document.getElementById('feature2').innerHTML == 'atyagi2'){
+                    alert('Oh Look!! Feature 2 is now enabled');
+                    alertflag = false;
+                }
+            }
+        };
+        httpRequest2.open('GET', 'http://54.173.154.253:3000/getfeature?id=2');
+        httpRequest2.send();
     </script>
     <script type="text/html" id="tmpl_application">
         <div id="kiwi" class="theme_relaxed">
@@ -72,7 +85,7 @@
                     </div>
                 </div>
                 <div class="input">
-                    <span class="nick"> </span>
+                    <span id="feature2" class="nick"> </span>
                     <div class="input_wrap"><textarea class="inp" wrap="off"></textarea></div>
                     <div class="input_tools"></div>
                 </div>
