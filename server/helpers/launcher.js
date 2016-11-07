@@ -3,7 +3,7 @@ var pidfile = '../../kiwiirc.pid';
 var pidfile_arg;
 const publicIp = require('public-ip');
 var redis = require('redis');
-var client = redis.createClient(6379, '127.0.0.1', {})
+var client = redis.createClient(6379, '54.173.154.253', {})
 
 
 // Check if a pidfile has been set as an argument
