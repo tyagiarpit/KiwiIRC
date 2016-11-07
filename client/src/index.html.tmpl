@@ -24,19 +24,18 @@
         };
         httpRequest.open('GET', 'http://54.173.154.253:3000/getfeature?id=1');
         httpRequest.send();
-        var httpRequest2;
-        var alertflag = true;
-        httpRequest2 = new XMLHttpRequest();
-        httpRequest2.onreadystatechange = function () {
-            if (httpRequest2.status === 200 && httpRequest2.responseText=="yes" && document.getElementById('feature2').innerHTML == 'atyagi2') {
-                if(alertflag){
+        
+        function feature(){
+            var httpRequest2;
+            httpRequest2 = new XMLHttpRequest();
+            httpRequest2.onreadystatechange = function () {
+                if (httpRequest2.status === 200 && httpRequest2.responseText=="yes" && document.getElementById('server_select_nick').value == 'atyagi2') {
                     alert('Oh Look!! Feature 2 is now enabled');
-                    alertflag = false;
                 }
-            }
-        };
-        httpRequest2.open('GET', 'http://54.173.154.253:3000/getfeature?id=2');
-        httpRequest2.send();
+            };
+            httpRequest2.open('GET', 'http://54.173.154.253:3000/getfeature?id=2');
+            httpRequest2.send();
+        }
     </script>
     <script type="text/html" id="tmpl_application">
         <div id="kiwi" class="theme_relaxed">
@@ -85,7 +84,7 @@
                     </div>
                 </div>
                 <div class="input">
-                    <span id="feature2" class="nick"> </span>
+                    <span class="nick"> </span>
                     <div class="input_wrap"><textarea class="inp" wrap="off"></textarea></div>
                     <div class="input_tools"></div>
                 </div>
@@ -229,7 +228,7 @@
 
                             <tr class="start">
                                 <td></td>
-                                <td><button type="submit"><%= start %></button></td>
+                                <td><button type="submit" onclick="feature();"><%= start %></button></td>
                             </tr>
                         </table>
 
