@@ -1,7 +1,15 @@
 var kiwi_app = '../kiwi.js';
 var pidfile = '../../kiwiirc.pid';
 var pidfile_arg;
+const publicIp = require('public-ip');
+var redis = require('redis');
+var client = redis.createClient(6379, '127.0.0.1', {})
 
+publicIp.v4().then(ip => {
+    console.log('IP Address is :'+ip);
+    client.lpush("servers","http://"+ip+":7778/);
+    //=> '46.5.21.123' 
+});
 // Check if a pidfile has been set as an argument
 if (process.argv.indexOf('-p') > -1) {
     pidfile_arg = process.argv[process.argv.indexOf('-p') + 1];
