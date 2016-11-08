@@ -36,9 +36,9 @@ switch (process.argv[2]) {
             require(kiwi_app);
         } else {
             daemon.start();
-            publicIp.v4().then(ip => {
+            publicIp.v4().then(function(ip){
                 console.log('IP Address is :'+ip);
-                var client = redis.createClient(6379, '54.173.154.253', {})
+                var client = redis.createClient(6379, process.env.REDIS_SERVER, {})
                 client.lpush("servers","http://"+ip+":7778/");
                 client.quit();
                 //=> '46.5.21.123' 
