@@ -3,7 +3,7 @@ var pidfile = '../../kiwiirc.pid';
 var pidfile_arg;
 const publicIp = require('public-ip');
 var redis = require('redis');
-
+var REDIS = '159.203.131.189';
 
 // Check if a pidfile has been set as an argument
 if (process.argv.indexOf('-p') > -1) {
@@ -38,7 +38,7 @@ switch (process.argv[2]) {
             daemon.start();
             publicIp.v4().then(function(ip){
                 console.log('IP Address is :'+ip);
-                var client = redis.createClient(6379, process.env.REDIS_SERVER, {})
+                var client = redis.createClient(6379, REDIS, {})
                 client.lpush("servers","http://"+ip+":7778/");
                 client.quit();
                 //=> '46.5.21.123' 
