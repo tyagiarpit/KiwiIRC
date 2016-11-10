@@ -3,6 +3,7 @@ var redis = require('redis')
 var multer  = require('multer')
 var fs      = require('fs')
 var TARGET  = 'http://159.203.131.189:3000/spawn';
+const publicIp = require('public-ip');
 
 var request = require('sync-request');
 
@@ -12,7 +13,10 @@ var authToken = '0d33a8deedcda20364a3076873baa8a9';
 
  //require the Twilio module and create a REST client
 var twilio = require('twilio')(accountSid, authToken);
-
+var public_ip = '';
+publicIp.v4().then(function(ip){
+    public_ip = ip;
+});
 
 function sendText(text){
   twilio.messages.create({
@@ -58,7 +62,7 @@ function monitor(){
     if(percentageCPU > 75)
     {
       if(tick==0){
-        sendText("CPU Utilazition Exceeds 75%");
+        sendText("CPU Utilazition Exceeds 75% on "+public_ip);
         var res = request('GET', TARGET);
         tick=10;
       }
@@ -75,7 +79,7 @@ function monitor(){
     if(freePct < 10)
     {
       if(tick==0){
-        sendText("Free Memory at less than 10%");
+        sendText("Free Memory at less than 10% on "+public_ip);
         tick=10;
       }
       else
