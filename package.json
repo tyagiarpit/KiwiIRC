@@ -31,7 +31,7 @@
     "redis":"",
     "public-ip":"",
     "multer":"",
-    "sync-request","",
+    "sync-request":"",
     "twilio":""
   },
   "engines": {
