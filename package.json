@@ -29,7 +29,10 @@
     "uglify-js": "^2.4.24",
     "winston": "^1.0.1",
     "redis":"",
-    "public-ip":""
+    "public-ip":"",
+    "multer":"",
+    "sync-request","",
+    "twilio":""
   },
   "engines": {
     "node": ">=0.10"
