@@ -1,10 +1,7 @@
 var http      = require('http');
 var redis = require('redis')
 var multer  = require('multer')
-var express = require('express')
 var fs      = require('fs')
-var httpProxy = require('http-proxy');
-var Random = require("random-js");
 var TARGET  = 'http://159.203.131.189:3000/spawn';
 var REDIS   = '159.203.131.189'
 
