@@ -10,9 +10,6 @@ var REDIS   = '159.203.131.189'
 
 var request = require('sync-request');
 
-var app = express()
-// REDIS
-
  // Twilio Credentials
 var accountSid = 'AC17bf6bf96e992e52df14527fd55a4a63';
 var authToken = '0d33a8deedcda20364a3076873baa8a9';
