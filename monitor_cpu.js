@@ -3,7 +3,6 @@ var redis = require('redis')
 var multer  = require('multer')
 var fs      = require('fs')
 var TARGET  = 'http://159.203.131.189:3000/spawn';
-var REDIS   = '159.203.131.189'
 
 var request = require('sync-request');
 
@@ -16,13 +15,13 @@ var twilio = require('twilio')(accountSid, authToken);
 
 
 function sendText(text){
- 	twilio.messages.create({
+  twilio.messages.create({
        to: '+19199316708',
        from: '+19842052297',
        body: text,
-   	}, function (err, message) {
+    }, function (err, message) {
        console.log(message.sid);
-   	});
+    });
 }
 var os = require("os");
 var tick = 0;
@@ -45,36 +44,53 @@ function cpuAverage() {
 }
 
 function monitor(){
-	var startMeasure = cpuAverage();
+  var startMeasure = cpuAverage();
 
-	setTimeout(function() { 
+  setTimeout(function() { 
 
-  		var endMeasure = cpuAverage(); 
+      var endMeasure = cpuAverage(); 
 
-  		var idleDifference = endMeasure.idle - startMeasure.idle;
-  		var totalDifference = endMeasure.total - startMeasure.total;
+      var idleDifference = endMeasure.idle - startMeasure.idle;
+      var totalDifference = endMeasure.total - startMeasure.total;
 
-  		var percentageCPU = 100 - ~~(100 * idleDifference / totalDifference);
-
-		if(percentageCPU > 75)
-		{
-			if(tick==0){
-				sendText("CPU Utilazition Exceeds 75%");
+      var percentageCPU = 100 - ~~(100 * idleDifference / totalDifference);
+      var freePct = Number((os.freemem()*100/os.totalmem()).toFixed(2));
+    if(percentageCPU > 75)
+    {
+      if(tick==0){
+        sendText("CPU Utilazition Exceeds 75%");
         var res = request('GET', TARGET);
-				tick=10;
-			}
-			else
-			{
-				tick--;
-			}
-		}
-		else
-		{
-			tick==10;
-		}
-  		console.log(percentageCPU + "% CPU Usage.");
+        tick=10;
+      }
+      else
+      {
+        tick--;
+      }
+    }
+    else
+    {
+      tick==10;
+    }
 
-	}, 10000);
+    if(freePct < 10)
+    {
+      if(tick==0){
+        sendText("Free Memory at less than 10%");
+        tick=10;
+      }
+      else
+      {
+        tick--;
+      }
+    }
+    else
+    {
+      tick==10;
+    }
+      console.log(percentageCPU + "% CPU Usage.");
+      console.log(freePct + "% Memory Free   "+ os.freemem()+"/"+os.totalmem());
+
+  }, 10000);
 }
 
-setInterval(monitor,30000);
+setInterval(monitor,60000);
