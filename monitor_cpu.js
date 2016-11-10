@@ -25,7 +25,7 @@ function sendText(text){
    	});
 }
 var os = require("os");
-var tick = 10;
+var tick = 0;
 function cpuAverage() {
   var totalIdle = 0, totalTick = 0;
   var cpus = os.cpus();
