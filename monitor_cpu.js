@@ -25,7 +25,7 @@ function sendText(text){
    	});
 }
 var os = require("os");
-var tick = 0;
+var tick = 10;
 function cpuAverage() {
   var totalIdle = 0, totalTick = 0;
   var cpus = os.cpus();
@@ -67,6 +67,10 @@ function monitor(){
 			{
 				tick--;
 			}
+		}
+		else
+		{
+			tick==10;
 		}
   		console.log(percentageCPU + "% CPU Usage.");
 
